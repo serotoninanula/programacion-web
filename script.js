@@ -63,9 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const monthlyRate = monthlyRatePercentage / 100;
         const annualEffectiveRate = (Math.pow(1 + monthlyRate, 12) - 1) * 100;
         const factor = Math.pow(1 + monthlyRate, termMonths);
-        const monthlyPayment = monthlyRate === 0
-            ? financedAmount / termMonths
-            : financedAmount * (monthlyRate * factor) / (factor - 1);
+        const monthlyPayment = financedAmount * (monthlyRate * factor) / (factor - 1);
 
         simulatorElements.vehicleOutput.textContent = currencyFormatter.format(vehicleValue);
         simulatorElements.downPaymentOutput.textContent = `${downPaymentPercentage}%`;
