@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Simula y explora una solicitud demostrativa de crédito para vehículo con Credilisto.">
+    <title>Crédito para vehículo | Credilisto</title>
+    <link rel="icon" type="image/png" href="assets/images/credilisto-logo.png">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header">
+        <nav class="nav-container" aria-label="Navegación principal">
+            <a class="brand-link" href="index.html" aria-label="Credilisto, inicio">
+                <img class="brand-logo" src="assets/images/credilisto-logo.png" alt="Credilisto">
+            </a>
+            <ul class="nav-list">
+                <li><a class="nav-link" href="index.html" aria-current="page">Inicio</a></li>
+                <li><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+                <li><a class="nav-link" href="blog.html">Blog</a></li>
+                <li><a class="nav-link" href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="site-main" id="contenido">
+        <div class="home-layout">
+            <section class="hero-copy" aria-labelledby="home-title">
+                <p class="eyebrow">Crédito para carro, moto o vehículo productivo</p>
+                <h1 class="hero-title" id="home-title">Más opciones,<br><span class="highlight">mejores tasas</span></h1>
+                <p class="hero-intro">
+                    Explora una precalificación demostrativa y calcula una cuota aproximada sin enviar ni almacenar tus datos.
+                </p>
+
+                <p class="partners-label">Entidades representadas en esta demostración:</p>
+                <img class="partners-image" src="assets/images/logos-bancos-sura.png" alt="Logos de entidades financieras">
+
+                <section class="simulator-card" aria-labelledby="simulator-title">
+                    <h2 class="card-title" id="simulator-title">Simulador de crédito</h2>
+
+                    <div class="simulator-grid">
+                        <div class="simulator-field">
+                            <label class="simulator-label" for="sim-vehicle">
+                                Valor del vehículo
+                                <output class="simulator-value" id="vehicle-output" for="sim-vehicle"></output>
+                            </label>
+                            <input class="simulator-slider" id="sim-vehicle" type="range">
+                        </div>
+
+                        <div class="simulator-field">
+                            <label class="simulator-label" for="sim-term">
+                                Plazo
+                                <output class="simulator-value" id="term-output" for="sim-term"></output>
+                            </label>
+                            <input class="simulator-slider" id="sim-term" type="range">
+                        </div>
+
+                        <div class="simulator-field">
+                            <label class="simulator-label" for="sim-down-payment">
+                                Cuota inicial
+                                <output class="simulator-value" id="down-payment-output" for="sim-down-payment"></output>
+                            </label>
+                            <input class="simulator-slider" id="sim-down-payment" type="range">
+                            <p class="simulator-meta">En pesos: <span id="down-payment-amount"></span></p>
+                        </div>
+
+                        <div class="simulator-field">
+                            <label class="simulator-label" for="sim-rate">
+                                Tasa mensual
+                                <output class="simulator-value" id="rate-output" for="sim-rate"></output>
+                            </label>
+                            <input class="simulator-slider" id="sim-rate" type="range">
+                            <p class="simulator-meta">Tasa E.A.: <span id="annual-rate-output"></span></p>
+                        </div>
+                    </div>
+
+                    <div class="simulator-result" aria-live="polite">
+                        <p>Cuota mensual aproximada</p>
+                        <strong id="payment-output"></strong>
+                        <small>Estimación educativa. No representa una oferta de crédito.</small>
+                    </div>
+                </section>
+            </section>
+
+            <section class="application-card" id="solicitud" aria-labelledby="application-title">
+                <header class="application-header">
+                    <h2 id="application-title">Precalificación</h2>
+                    <p>Completa el recorrido de prueba en dos pasos.</p>
+                    <ol class="progress-list" aria-label="Progreso del formulario">
+                        <li class="progress-item is-active">
+                            <span class="progress-number" aria-hidden="true">1</span>
+                            Condiciones
+                        </li>
+                        <li class="progress-item">
+                            <span class="progress-number" aria-hidden="true">2</span>
+                            Datos básicos
+                        </li>
+                    </ol>
+                </header>
+
+                <form class="credit-form" id="credit-form" novalidate>
+                    <section class="form-step" id="form-step-1" aria-labelledby="step-one-title">
+                        <h3 id="step-one-title">Condiciones del vehículo y solicitante</h3>
+
+                        <fieldset class="form-fieldset" data-field="vehicle">
+                            <legend>¿Qué vehículo deseas financiar?</legend>
+                            <div class="radio-grid radio-grid--vehicles">
+                                <label class="radio-option">
+                                    <input type="radio" name="vehicle" value="private">
+                                    <span>Uso privado</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="vehicle" value="motorcycle">
+                                    <span>Moto</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="vehicle" value="productive">
+                                    <span>Productivo o servicio público</span>
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-fieldset conditional-field" id="motorcycle-question" data-field="motorcycle_value" hidden>
+                            <legend>¿La moto tiene un valor superior a $15 millones?</legend>
+                            <div class="radio-grid">
+                                <label class="radio-option">
+                                    <input type="radio" name="motorcycle_value" value="yes">
+                                    <span>Sí</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="motorcycle_value" value="no">
+                                    <span>No</span>
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-fieldset conditional-field" id="vehicle-age-question" data-field="vehicle_age" hidden>
+                            <legend>¿El vehículo es modelo 2016 o posterior?</legend>
+                            <div class="radio-grid">
+                                <label class="radio-option">
+                                    <input type="radio" name="vehicle_age" value="yes">
+                                    <span>Sí</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="vehicle_age" value="no">
+                                    <span>No</span>
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-fieldset" data-field="income">
+                            <legend>¿Tienes ingresos demostrables de $2,8 millones mensuales o más?</legend>
+                            <div class="radio-grid">
+                                <label class="radio-option">
+                                    <input type="radio" name="income" value="yes">
+                                    <span>Sí</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="income" value="no">
+                                    <span>No</span>
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-fieldset" data-field="credit_report">
+                            <legend>¿Tienes algún reporte negativo en centrales de riesgo?</legend>
+                            <div class="radio-grid">
+                                <label class="radio-option">
+                                    <input type="radio" name="credit_report" value="yes">
+                                    <span>Sí</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="credit_report" value="no">
+                                    <span>No</span>
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-fieldset conditional-field" id="debt-clearance-question" data-field="debt_clearance" hidden>
+                            <legend>¿Cuentas con el paz y salvo de la deuda?</legend>
+                            <div class="radio-grid">
+                                <label class="radio-option">
+                                    <input type="radio" name="debt_clearance" value="yes">
+                                    <span>Sí</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="debt_clearance" value="no">
+                                    <span>No</span>
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <p class="form-error" id="form-error-1" role="alert" hidden>
+                            Responde todas las preguntas visibles para continuar.
+                        </p>
+                        <button class="button button--full" id="next-button" type="button">Continuar</button>
+                        <p class="approval-note">Este formulario funciona únicamente como demostración local.</p>
+                    </section>
+
+                    <section class="form-step" id="form-step-2" aria-labelledby="step-two-title" hidden>
+                        <h3 id="step-two-title">Datos básicos</h3>
+
+                        <div class="form-row">
+                            <div class="field-group">
+                                <label class="field-label" for="first-name">Nombre</label>
+                                <input class="text-input" id="first-name" name="first_name" type="text" minlength="2" maxlength="40" autocomplete="given-name" required>
+                            </div>
+                            <div class="field-group">
+                                <label class="field-label" for="last-name">Apellido</label>
+                                <input class="text-input" id="last-name" name="last_name" type="text" minlength="2" maxlength="40" autocomplete="family-name" required>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label" for="phone">Celular colombiano</label>
+                            <input class="text-input" id="phone" name="phone" type="tel" inputmode="numeric" pattern="3[0-9]{9}" maxlength="10" placeholder="3XXXXXXXXX" autocomplete="tel" required>
+                            <p class="field-help">Debe comenzar por 3 y tener 10 dígitos.</p>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label" for="email">Correo electrónico</label>
+                            <input class="text-input" id="email" name="email" type="email" autocomplete="email" required>
+                        </div>
+
+                        <fieldset class="form-fieldset" data-field="purchase_status">
+                            <legend>¿Ya tienes seleccionado el vehículo?</legend>
+                            <div class="radio-grid">
+                                <label class="radio-option">
+                                    <input type="radio" name="purchase_status" value="selected">
+                                    <span>Ya lo tengo visto</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="purchase_status" value="needs_help">
+                                    <span>Necesito ayuda</span>
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <p class="privacy-note">
+                            Privacidad: los datos escritos permanecen en esta página. No se guardan ni se envían a ningún servidor.
+                        </p>
+                        <p class="form-error" id="form-error-2" role="alert" hidden>
+                            Revisa los campos marcados antes de continuar.
+                        </p>
+
+                        <div class="button-row">
+                            <button class="button-secondary" id="previous-button" type="button">Atrás</button>
+                            <button class="button" id="submit-button" type="button">Confirmar datos</button>
+                        </div>
+                    </section>
+
+                    <section class="form-step rejection-panel" id="rejection-step" aria-labelledby="rejection-title" hidden>
+                        <div class="rejection-icon" aria-hidden="true">!</div>
+                        <h3 id="rejection-title">Por ahora no cumples las condiciones</h3>
+                        <p>
+                            Las respuestas indicadas no coinciden con los criterios de esta demostración. No recopilamos datos personales en este resultado.
+                        </p>
+                        <button class="button" id="retry-button" type="button">Volver a intentar</button>
+                    </section>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <a class="floating-apply" href="#solicitud">Ir al formulario</a>
+
+    <dialog class="confirmation-dialog" id="confirmation-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+        <div class="dialog-content">
+            <button class="dialog-close" id="close-dialog" type="button" aria-label="Cerrar">&times;</button>
+            <p class="eyebrow">Confirmación local</p>
+            <h2 id="dialog-title">Escribe cuatro dígitos</h2>
+            <p id="dialog-description">
+                Usa cualquier combinación de cuatro números. No se envía ningún código ni se consulta un servidor.
+            </p>
+
+            <div class="code-inputs" role="group" aria-label="Código local de cuatro dígitos">
+                <input class="code-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Dígito 1">
+                <input class="code-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Dígito 2">
+                <input class="code-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Dígito 3">
+                <input class="code-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Dígito 4">
+            </div>
+
+            <p class="form-error" id="code-error" role="alert" hidden>Completa los cuatro dígitos.</p>
+            <div class="button-row">
+                <button class="button-secondary" id="cancel-dialog" type="button">Cancelar</button>
+                <button class="button" id="confirm-code" type="button">Continuar</button>
+            </div>
+        </div>
+    </dialog>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div>
+                <img class="footer-logo" src="assets/images/credilisto-logo.png" alt="Credilisto">
+                <p>Demostración educativa de una experiencia de precalificación vehicular.</p>
+            </div>
+            <div>
+                <h2>Central Digital de Seguros y Créditos Zalabín Ltda.</h2>
+                <p>NIT 901544117-6</p>
+                <p>Cra. 28 #85a-59, Bogotá, Colombia</p>
+            </div>
+            <div>
+                <h2>Contacto</h2>
+                <p><a href="tel:+573150325893">+57 315 032 5893</a></p>
+                <p><a href="https://wa.me/573105909238" target="_blank" rel="noopener noreferrer">WhatsApp: +57 310 590 9238</a></p>
+                <p><a href="mailto:soporte@credilisto.zalabin.com">soporte@credilisto.zalabin.com</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">Sitio demostrativo: no recopila ni envía información personal.</div>
+    </footer>
+</body>
+</html>
